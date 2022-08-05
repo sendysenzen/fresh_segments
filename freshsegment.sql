@@ -150,21 +150,4 @@ HAVING count(DISTINCT month_year) = 14
 -- which total_months value passes the 90% cumulative percentage value?
 -- key words: ALL RECORDS please note this
 
-WITH cte AS (
-SELECT
-    interest_id,
-    count(DISTINCT month_year) total_months, 
-    count(interest_id) total_records
-FROM interest_metrics
-GROUP BY 1
-)
-SELECT 
-    total_months,
-    COUNT(total_months),
-    ROUND(100*SUM(total_months) OVER(ORDER BY total_months DESC)/SUM(total_months) OVER(),2) AS cumm_percentage
-FROM cte
-GROUP BY 1
-ORDER BY 1 DESC
 
-
--- just found out that 
